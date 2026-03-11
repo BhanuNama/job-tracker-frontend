@@ -129,7 +129,7 @@ export default function OfferMatrix() {
                                 </button>
 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                                    <div style={{ width: 40, height: 40, borderRadius: 10, background: 'linear-gradient(135deg, #00E5CC22, #A78BFA22)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700 }}>
+                                    <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(99,102,241,0.15)', color: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700 }}>
                                         {offer.company[0]}
                                     </div>
                                     <div>

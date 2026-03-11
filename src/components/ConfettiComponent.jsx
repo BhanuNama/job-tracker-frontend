@@ -14,12 +14,12 @@ export default function ConfettiComponent() {
             particleCount: 150,
             spread: 100,
             origin: { y: 0.6 },
-            colors: ['#00E5CC', '#A78BFA', '#34D399', '#FBBF24', '#60A5FA', '#FF6B6B', '#FFD93D'],
+            colors: ['#6366F1', '#A78BFA', '#34D399', '#FBBF24', '#60A5FA', '#FF6B6B', '#FFD93D'],
             zIndex: 9999
         })
 
         const end = Date.now() + 3500
-        const colors = ['#00E5CC', '#A78BFA', '#34D399', '#FBBF24', '#60A5FA']
+        const colors = ['#6366F1', '#A78BFA', '#34D399', '#FBBF24', '#60A5FA']
 
         const frame = () => {
             confetti({
@@ -84,7 +84,7 @@ export default function ConfettiComponent() {
                             padding: '24px 48px',
                             borderRadius: '24px',
                             border: '2px solid var(--teal)',
-                            boxShadow: '0 0 80px rgba(0, 229, 204, 0.4)',
+                            boxShadow: '0 0 80px rgba(99, 102, 241, 0.4)',
                             textAlign: 'center'
                         }}
                     >

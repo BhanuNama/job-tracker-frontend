@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           fontFamily: 'Inter, sans-serif',
           fontSize: '14px',
         },
-        success: { iconTheme: { primary: '#00E5CC', secondary: '#0a0b0f' } },
+        success: { iconTheme: { primary: '#6366F1', secondary: '#0a0b0f' } },
         error: { iconTheme: { primary: '#F87171', secondary: '#0a0b0f' } },
       }}
     />

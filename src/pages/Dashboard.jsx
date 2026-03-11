@@ -47,7 +47,7 @@ export default function Dashboard() {
     const statCards = stats ? [
         { label: 'Total Applications', value: stats.total, icon: Briefcase, color: '#60A5FA', accent: '#60A5FA' },
         { label: 'Interviews Booked', value: stats.interviews, icon: MessageSquare, color: '#A78BFA', accent: '#A78BFA' },
-        { label: 'Response Rate', value: `${stats.responseRate}%`, icon: TrendingUp, color: '#00E5CC', accent: '#00E5CC' },
+        { label: 'Response Rate', value: `${stats.responseRate}%`, icon: TrendingUp, color: '#6366F1', accent: '#6366F1' },
         { label: 'Offers Received', value: stats.offers, icon: Trophy, color: '#34D399', accent: '#34D399' },
     ] : []
 
@@ -141,14 +141,14 @@ export default function Dashboard() {
                         <AreaChart data={stats?.weeklyVelocity || []}>
                             <defs>
                                 <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#00E5CC" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#00E5CC" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} />
+                                    <stop offset="95%" stopColor="#6366F1" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
                             <XAxis dataKey="week" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} width={20} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Area type="monotone" dataKey="applications" stroke="#00E5CC" strokeWidth={2} fill="url(#tealGrad)" />
+                            <Area type="monotone" dataKey="applications" stroke="#6366F1" strokeWidth={2} fill="url(#tealGrad)" />
                         </AreaChart>
                     </ResponsiveContainer>
                 </motion.div>

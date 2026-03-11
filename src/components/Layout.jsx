@@ -46,7 +46,7 @@ export default function Layout() {
                 <div style={{ padding: '20px 16px 16px', display: 'flex', alignItems: 'center', justifyContent: sidebarCollapsed ? 'center' : 'space-between', minHeight: 64 }}>
                     {!sidebarCollapsed && (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #00E5CC, #00b8d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                            <div style={{ width: 28, height: 28, borderRadius: 8, background: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                 <Target size={15} color="#0a0b0f" />
                             </div>
                             <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 16, fontWeight: 700, whiteSpace: 'nowrap' }}>
@@ -92,7 +92,7 @@ export default function Layout() {
                 <div style={{ padding: '12px 12px 16px', borderTop: '1px solid var(--border)' }}>
                     {!sidebarCollapsed && (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 10, background: 'var(--bg-700)', marginBottom: 8 }}>
-                            <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg, #00E5CC, #A78BFA)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#0a0b0f', flexShrink: 0 }}>
+                            <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#0a0b0f', flexShrink: 0 }}>
                                 {user?.name?.[0] || 'U'}
                             </div>
                             <div style={{ overflow: 'hidden' }}>
@@ -113,7 +113,7 @@ export default function Layout() {
                 {/* Mobile Header (Hidden on desktop) */}
                 <header className="mobile-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg, #00E5CC, #00b8d4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 24, height: 24, borderRadius: 6, background: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Target size={14} color="#0a0b0f" />
                         </div>
                         <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 16, fontWeight: 700 }}>

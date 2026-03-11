@@ -6,6 +6,7 @@ import { Upload, FileText, Download, Trash2, X } from 'lucide-react'
 import { format } from 'date-fns'
 import api from '../lib/api'
 import toast from 'react-hot-toast'
+import { confirmToast } from '../lib/confirmToast.jsx'
 
 function DocCard({ doc, onDelete }) {
     const handleDownload = async () => {
@@ -35,7 +36,7 @@ function DocCard({ doc, onDelete }) {
                 </div>
                 <div style={{ display: 'flex', gap: 4 }}>
                     <button onClick={handleDownload} className="btn-ghost" style={{ padding: 6 }} title="Download"><Download size={14} /></button>
-                    <button onClick={() => { if (window.confirm('Delete this file?')) onDelete(doc._id) }} className="btn-ghost" style={{ padding: 6, color: 'var(--red)' }} title="Delete"><Trash2 size={14} /></button>
+                    <button onClick={() => confirmToast('Delete this file?', () => onDelete(doc._id))} className="btn-ghost" style={{ padding: 6, color: 'var(--red)' }} title="Delete"><Trash2 size={14} /></button>
                 </div>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>

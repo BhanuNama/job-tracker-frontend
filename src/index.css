@@ -2,10 +2,10 @@
 
 @layer base {
   :root {
-    --teal: #00C8B2;
-    --teal-dim: #009e8c;
-    --purple: #8B5CF6;
-    --purple-dim: #6d3fd6;
+    --teal: #6366F1;
+    --teal-dim: #4f52d6;
+    --purple: #A855F7;
+    --purple-dim: #8b3dd6;
     --yellow: #F59E0B;
     --green: #10B981;
     --red: #EF4444;
@@ -99,7 +99,7 @@
   }
 
   ::selection {
-    background: rgba(0, 200, 178, 0.2);
+    background: rgba(99, 102, 241, 0.2);
     color: var(--teal);
   }
 }
@@ -126,8 +126,8 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: linear-gradient(135deg, var(--teal), #00b8d4);
-  color: #0a0b0f;
+  background: var(--teal);
+  color: #fff;
   font-weight: 700;
   font-size: 14px;
   font-family: 'Sofia Sans', sans-serif;
@@ -141,7 +141,7 @@
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0, 229, 204, 0.3);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:active {
@@ -208,7 +208,7 @@
 
 .input:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .input::placeholder {
@@ -261,9 +261,9 @@
 }
 
 .badge-teal {
-  background: rgba(0, 229, 204, 0.15);
+  background: rgba(99, 102, 241, 0.15);
   color: var(--teal);
-  border: 1px solid rgba(0, 229, 204, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .badge-purple {
@@ -374,7 +374,7 @@
 /* ===== KANBAN DRAG ===== */
 .kanban-dragging {
   transform: rotate(2deg) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 229, 204, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(99, 102, 241, 0.3);
   z-index: 9999;
 }
 
@@ -403,6 +403,16 @@
   }
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -422,7 +432,7 @@
 }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--bg-600) 25%, var(--bg-500) 50%, var(--bg-600) 75%);
+  background: var(--bg-500);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
@@ -454,9 +464,9 @@
 }
 
 .nav-item.active {
-  background: rgba(0, 229, 204, 0.1);
+  background: rgba(99, 102, 241, 0.1);
   color: var(--teal);
-  border-color: rgba(0, 229, 204, 0.15);
+  border-color: rgba(99, 102, 241, 0.15);
 }
 
 /* ===== STATS CARD ===== */
@@ -550,16 +560,13 @@
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text {
-  background: linear-gradient(135deg, var(--teal), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--teal);
 }
 
 /* ===== DRAG DROP COLUMN ===== */
 .drop-target-active {
-  background: rgba(0, 229, 204, 0.05) !important;
-  border-color: rgba(0, 229, 204, 0.3) !important;
+  background: rgba(99, 102, 241, 0.05) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
 }
 
 /* ===== RECHARTS OVERRIDE ===== */
@@ -636,6 +643,24 @@
   h3 {
     font-size: 18px !important;
   }
+
+  /* ===== LOGIN PAGE MOBILE FIX ===== */
+  .login-desktop {
+    display: none !important;
+  }
+
+  .login-mobile {
+    display: block !important;
+  }
+}
+
+/* ===== LOGIN — desktop shows desktop layout, hides mobile ===== */
+.login-desktop {
+  display: flex;
+}
+
+.login-mobile {
+  display: none;
 }
 
 /* ===== APP LAYOUT & MOBILE NAV ===== */

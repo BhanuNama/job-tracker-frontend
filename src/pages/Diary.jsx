@@ -9,6 +9,7 @@ import {
 } from 'date-fns'
 import api from '../lib/api'
 import toast from 'react-hot-toast'
+import { confirmToast } from '../lib/confirmToast.jsx'
 
 const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 const PROMPTS = [
@@ -197,7 +198,7 @@ export default function Diary() {
                                         <PenLine size={13} /> {entry ? 'Edit' : 'Write'}
                                     </button>
                                     {entry && (
-                                        <button onClick={() => { if (window.confirm('Delete entry?')) delMutation.mutate(selected) }}
+                                        <button onClick={() => confirmToast('Delete entry?', () => delMutation.mutate(selected))}
                                             className="btn-ghost" style={{ padding: '7px 10px', borderRadius: 10, color: 'var(--red)' }}>
                                             <Trash2 size={14} />
                                         </button>

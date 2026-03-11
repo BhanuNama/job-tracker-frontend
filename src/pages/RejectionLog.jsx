@@ -11,7 +11,7 @@ const MOODS = [
     { score: 2, icon: Meh, label: 'Getting there', color: '#FB923C' },
     { score: 3, icon: Smile, label: 'Holding up', color: '#FBBF24' },
     { score: 4, icon: SmilePlus, label: 'Good vibes', color: '#34D399' },
-    { score: 5, icon: Laugh, label: 'Crushing it!', color: '#00E5CC' },
+    { score: 5, icon: Laugh, label: 'Crushing it!', color: '#6366F1' },
 ]
 
 const PROMPTS = [

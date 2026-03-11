@@ -5,9 +5,11 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { Plus, Edit2, Trash2, FileText, MapPin, DollarSign } from 'lucide-react'
 import api from '../lib/api'
 import toast from 'react-hot-toast'
+import { confirmToast } from '../lib/confirmToast.jsx'
 import useUIStore from '../store/uiStore'
 import { formatDistanceToNow } from 'date-fns'
 import ApplicationFormModal from '../components/ApplicationFormModal'
+import ApplicationDetailModal from './ApplicationDetailModal'
 
 const STAGES = ['Saved', 'Applied', 'Screening', 'Interviewing', 'Final Round', 'Offer', 'Closed']
 const STAGE_COLORS = {
@@ -17,7 +19,7 @@ const STAGE_COLORS = {
 const SOURCE_COLORS = {
     'LinkedIn': '#0A66C2',
     'Referral': '#34D399',
-    'Company Website': '#00E5CC',
+    'Company Website': '#6366F1',
     'Email Outreach': '#A78BFA',
     'Recruiter Reached Out': '#FBBF24',
 }
@@ -30,7 +32,7 @@ function ghostingRing(lastContact) {
     return { color: '#F87171', label: `${days}d`, pulse: true }
 }
 
-function AppCard({ app, index, onEdit, onDelete }) {
+function AppCard({ app, index, onEdit, onDelete, onView }) {
     const ring = ghostingRing(app.lastContact)
     const sourceColor = SOURCE_COLORS[app.appliedThrough] || '#9095b0'
 
@@ -41,14 +43,15 @@ function AppCard({ app, index, onEdit, onDelete }) {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    onClick={() => { if (!snapshot.isDragging) onView(app) }}
                     style={{
                         ...provided.draggableProps.style,
                         background: snapshot.isDragging ? 'var(--bg-600)' : 'var(--bg-700)',
-                        border: snapshot.isDragging ? '1px solid rgba(0,229,204,0.4)' : '1px solid var(--border)',
+                        border: snapshot.isDragging ? '1px solid rgba(99,102,241,0.4)' : '1px solid var(--border)',
                         borderRadius: 12,
                         padding: '12px 13px',
                         marginBottom: 8,
-                        cursor: snapshot.isDragging ? 'grabbing' : 'grab',
+                        cursor: snapshot.isDragging ? 'grabbing' : 'pointer',
                         boxShadow: snapshot.isDragging ? '0 16px 48px rgba(0,0,0,0.55)' : '0 1px 3px rgba(0,0,0,0.2)',
                         userSelect: 'none',
                     }}
@@ -77,7 +80,7 @@ function AppCard({ app, index, onEdit, onDelete }) {
                             </button>
                             <button
                                 onMouseDown={e => e.stopPropagation()}
-                                onClick={e => { e.stopPropagation(); if (window.confirm(`Delete ${app.company}?`)) onDelete(app._id) }}
+                                onClick={e => { e.stopPropagation(); confirmToast(`Delete ${app.company}?`, () => onDelete(app._id)) }}
                                 className="btn-ghost"
                                 style={{ padding: 4, borderRadius: 6, color: 'var(--red)' }}
                                 title="Delete"
@@ -136,7 +139,7 @@ function AppCard({ app, index, onEdit, onDelete }) {
                     {app.skills?.length > 0 && (
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 3, marginBottom: 7 }}>
                             {app.skills.slice(0, 3).map(s => (
-                                <span key={s} style={{ fontSize: 10, color: 'var(--teal)', background: 'rgba(0,229,204,0.08)', padding: '2px 7px', borderRadius: 5, fontFamily: 'JetBrains Mono, monospace', border: '1px solid rgba(0,229,204,0.15)', whiteSpace: 'nowrap' }}>
+                                <span key={s} style={{ fontSize: 10, color: 'var(--teal)', background: 'rgba(99,102,241,0.08)', padding: '2px 7px', borderRadius: 5, fontFamily: 'JetBrains Mono, monospace', border: '1px solid rgba(99,102,241,0.15)', whiteSpace: 'nowrap' }}>
                                     {s}
                                 </span>
                             ))}
@@ -173,6 +176,7 @@ export default function KanbanBoard() {
     const { openAddDrawer, searchQuery } = useUIStore()
     const fireConfetti = useUIStore(s => s.fireConfetti)
     const [editApp, setEditApp] = useState(null)
+    const [selectedApp, setSelectedApp] = useState(null)
 
     const { data: applications = [], isLoading } = useQuery({
         queryKey: ['applications'],
@@ -289,7 +293,7 @@ export default function KanbanBoard() {
                                             {...provided.droppableProps}
                                             style={{
                                                 padding: '8px',
-                                                background: snapshot.isDraggingOver ? 'rgba(0,229,204,0.05)' : 'var(--bg-800)',
+                                                background: snapshot.isDraggingOver ? 'rgba(99,102,241,0.05)' : 'var(--bg-800)',
                                                 borderRight: '1px solid var(--border)',
                                                 borderBottom: '1px solid var(--border)',
                                                 borderLeft: '1px solid var(--border)',
@@ -298,7 +302,7 @@ export default function KanbanBoard() {
                                             }}
                                         >
                                             {cards.map((app, i) => (
-                                                <AppCard key={app._id} app={app} index={i} onEdit={setEditApp} onDelete={id => deleteMutation.mutate(id)} />
+                                                <AppCard key={app._id} app={app} index={i} onEdit={setEditApp} onDelete={id => deleteMutation.mutate(id)} onView={setSelectedApp} />
                                             ))}
                                             {provided.placeholder}
                                             {cards.length === 0 && !snapshot.isDraggingOver && (
@@ -314,6 +318,16 @@ export default function KanbanBoard() {
                     })}
                 </div>
             </DragDropContext>
+
+            {/* Detail view modal */}
+            <AnimatePresence>
+                {selectedApp && (
+                    <ApplicationDetailModal
+                        app={selectedApp}
+                        onClose={() => setSelectedApp(null)}
+                    />
+                )}
+            </AnimatePresence>
 
             {/* Edit modal */}
             <AnimatePresence>
