@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, EyeOff, Zap, TrendingUp, Target, ArrowRight, ArrowLeft, LogIn, UserPlus } from 'lucide-react'
+import { Eye, EyeOff, Zap, TrendingUp, Target, ArrowRight, ArrowLeft, LogIn, UserPlus, Sun, Moon } from 'lucide-react'
 import useAuthStore from '../store/authStore'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -102,6 +102,21 @@ export default function Login() {
     const { login, register, demoLogin, isLoading } = useAuthStore()
     const navigate = useNavigate()
 
+    const [theme, setTheme] = useState('light')
+
+    useEffect(() => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light'
+        setTheme(currentTheme)
+        document.documentElement.setAttribute('data-theme', currentTheme)
+    }, [])
+
+    const toggleTheme = () => {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark'
+        setTheme(nextTheme)
+        document.documentElement.setAttribute('data-theme', nextTheme)
+        localStorage.setItem('theme', nextTheme)
+    }
+
     const goTo = (panel) => {
         setMobilePanel(panel)
         if (panel !== 'welcome') setMode(panel)
@@ -140,7 +155,13 @@ export default function Login() {
             {/* ══════════════════════════════════════
                 DESKTOP (≥769px)
             ══════════════════════════════════════ */}
-            <div className="login-desktop" style={{ minHeight: '100vh', background: 'var(--bg-900)', display: 'flex', overflowY: 'auto' }}>
+            <div className="login-desktop" style={{ minHeight: '100vh', background: 'var(--bg-900)', display: 'flex', overflowY: 'auto', position: 'relative' }}>
+                <button
+                    onClick={toggleTheme}
+                    style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, background: 'var(--bg-700)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, cursor: 'pointer', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
                 {/* Left marketing panel */}
                 <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
                     style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '48px 56px', position: 'relative' }}>
@@ -186,6 +207,12 @@ export default function Login() {
                 MOBILE (≤768px)
             ══════════════════════════════════════ */}
             <div className="login-mobile" style={{ minHeight: '100vh', background: 'var(--bg-900)', overflow: 'hidden', position: 'relative' }}>
+                <button
+                    onClick={toggleTheme}
+                    style={{ position: 'absolute', top: 16, right: 16, zIndex: 100, background: 'var(--bg-700)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, cursor: 'pointer', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
                 <AnimatePresence mode="wait">
 
                     {/* Panel 1 — Welcome */}
